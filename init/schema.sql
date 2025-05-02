@@ -2,7 +2,7 @@ CREATE TABLE "players" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "nome" TEXT NOT NULL,
     "nick" TEXT NOT NULL,
-    "sobnenome" TEXT NOT NULL,
+    "sobrenome" TEXT NOT NULL,
     "funcao" TEXT NOT NULL
 );
 

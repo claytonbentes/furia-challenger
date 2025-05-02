@@ -1,13 +1,13 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-class DBConnectionHandler: 
+class __DBConnetionHandler: 
     def __init__(self) -> None:
         self.__connection_string = "{}:///{}".format(
             "sqlite",
             "furia.db"
         )
-        self.engine = None
+        self.__engine = None
         self.session = None
 
     def connect_to_db(self) -> None:
@@ -23,3 +23,5 @@ class DBConnectionHandler:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.session.close()
+
+db_connection_handler = __DBConnetionHandler()
