@@ -6,20 +6,21 @@ from sqlalchemy.orm.exc import NoResultFound
 from src.errors.errors_type.http_conflict import HttpConflictError
 
 class ProximasPartidasRepository:
-    def insert_proxima_partida(self, partidaInfo: Dict) -> Dict:
+    def insert_proxima_partida(self, proximaPartidaInfo: Dict) -> Dict:
         with db_connection_handler as database:
             try:
-                partida = ProximasPartidas(
-                    id=partidaInfo.get("id"),
-                    data=partidaInfo.get("data"),
-                    local=partidaInfo.get("local"),
-                    adversario=partidaInfo.get("adversario")
+                proxima_partida = ProximasPartidas(
+                    id=proximaPartidaInfo.get("uuid"),
+                    adversario=proximaPartidaInfo.get("adversario"),
+                    data=proximaPartidaInfo.get("data"),
+                    campeonato=proximaPartidaInfo.get("campeonato"),
+                    
                 )
 
-                database.session.add(partida)
+                database.session.add(proxima_partida)
                 database.session.commit()
 
-                return partidaInfo
+                return proximaPartidaInfo
             except IntegrityError:
                 raise HttpConflictError('Próxima partida já cadastrada')
 
@@ -27,23 +28,23 @@ class ProximasPartidasRepository:
                 database.session.rollback()
                 raise exception
 
-    def get_proxima_partida_by_id(self, partida_id: str) -> ProximasPartidas:
+    def get_proxima_partida_by_id(self, proxima_partida_id: str) -> ProximasPartidas:
         with db_connection_handler as database:
             try:
-                partida = (
+                proxima_partida = (
                     database.session
                     .query(ProximasPartidas)
-                    .filter(ProximasPartidas.id == partida_id)
+                    .filter(ProximasPartidas.id == proxima_partida_id)
                     .one()
                 )
-                return partida
+                return proxima_partida
             except NoResultFound:
                 return None
 
     def get_all_proximas_partidas(self) -> list[ProximasPartidas]:
         with db_connection_handler as database:
             try:
-                partidas = database.session.query(ProximasPartidas).all()
-                return partidas
+                proxima_partida = database.session.query(ProximasPartidas).all()
+                return proxima_partida
             except Exception as exception:
                 raise exception

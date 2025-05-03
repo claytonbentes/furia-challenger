@@ -6,21 +6,21 @@ from sqlalchemy.orm.exc import NoResultFound
 from src.errors.errors_type.http_conflict import HttpConflictError
 
 class PartidasRepository:
-    def insert_partida(self, partidaInfo: Dict) -> Dict:
+    def insert_partida(self, partidasInfo: Dict) -> Dict:
         with db_connection_handler as database:
             try:
                 partida = Partidas(
-                    id=partidaInfo.get("id"),
-                    data=partidaInfo.get("data"),
-                    local=partidaInfo.get("local"),
-                    time_casa=partidaInfo.get("time_casa"),
-                    time_visitante=partidaInfo.get("time_visitante")
+                    id=partidasInfo.get("uuid"),
+                    adversario=partidasInfo.get("adversario"),
+                    data=partidasInfo.get("data"),
+                    resultado=partidasInfo.get("resultado"),
+                    campeonato=partidasInfo.get("campeonato"),
                 )
 
                 database.session.add(partida)
                 database.session.commit()
 
-                return partidaInfo
+                return partidasInfo
             except IntegrityError:
                 raise HttpConflictError('Partida já cadastrada')
 

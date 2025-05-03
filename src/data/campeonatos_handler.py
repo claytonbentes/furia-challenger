@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime
 from src.models.repository.campeonatos_repository import CampeonatosRepository
 from src.http_types.http_request import HttpRequest
 from src.http_types.http_response import HttpResponse
@@ -10,6 +11,27 @@ class CampeonatoHandler:
 
     def register(self, http_request: HttpRequest) -> HttpResponse:
         body = http_request.body
+
+        # Converter data_inicio
+        if "data_inicio" in body and body["data_inicio"]:
+            try:
+                body["data_inicio"] = datetime.strptime(body["data_inicio"], "%d/%m/%Y").date()
+            except ValueError:
+                try:
+                    body["data_inicio"] = datetime.strptime(body["data_inicio"], "%Y-%m-%d").date()
+                except ValueError:
+                    body["data_inicio"] = datetime.strptime(body["data_inicio"], "%d-%m-%Y").date()
+        
+        # Converter data_fim
+        if "data_fim" in body and body["data_fim"]:
+            try:
+                body["data_fim"] = datetime.strptime(body["data_fim"], "%d/%m/%Y").date()
+            except ValueError:
+                try:
+                    body["data_fim"] = datetime.strptime(body["data_fim"], "%Y-%m-%d").date()
+                except ValueError:
+                    body["data_fim"] = datetime.strptime(body["data_fim"], "%d-%m-%Y").date()
+
         body["uuid"] = str(uuid.uuid4())
         self.__campeonatos_repository.insert_campeonato(body)
 

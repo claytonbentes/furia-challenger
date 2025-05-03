@@ -14,11 +14,16 @@ def handle_error(error: Exception) -> HttpResponse:
             status_code=error.status_code
         )
     
+    if isinstance(error, TypeError):
+        title = "TypeError"
+    else:
+        title = "Error"
     return HttpResponse(
         body={
             "errors": [{
-                "title": "error",
+                "title": title,
                 "details": str(error)
             }]
-        }
+        }, 
+        status_code=500   
     )

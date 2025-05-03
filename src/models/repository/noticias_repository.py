@@ -10,10 +10,10 @@ class NoticiasRepository:
         with db_connection_handler as database:
             try:
                 noticia = Noticias(
-                    id=noticiaInfo.get("id"),
+                    id=noticiaInfo.get("uuid"),
                     titulo=noticiaInfo.get("titulo"),
-                    conteudo=noticiaInfo.get("conteudo"),
-                    data_publicacao=noticiaInfo.get("data_publicacao")
+                    descricao=noticiaInfo.get("descricao"),
+                    data=noticiaInfo.get("data")
                 )
 
                 database.session.add(noticia)

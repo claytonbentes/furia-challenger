@@ -10,10 +10,11 @@ class CampeonatosRepository:
         with db_connection_handler as database:
             try:
                 campeonato = Campeonatos(
-                    id=campeonatoInfo.get("id"),
+                    id=campeonatoInfo.get("uuid"),
                     nome=campeonatoInfo.get("nome"),
                     data_inicio=campeonatoInfo.get("data_inicio"),
-                    data_fim=campeonatoInfo.get("data_fim")
+                    data_fim=campeonatoInfo.get("data_fim"),
+                    status=campeonatoInfo.get("status")
                 )
 
                 database.session.add(campeonato)

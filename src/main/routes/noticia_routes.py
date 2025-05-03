@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from src.http_types.http_request import HttpRequest
-from src.data.noticias_handler import NoticiasHandler
+from src.data.noticias_handler import NoticiaHandler
 from src.errors.error_handler import handle_error
 
 noticia_route_bp = Blueprint("noticia_route", __name__)
