@@ -7,7 +7,7 @@ class FuriaQueryAgent:
 
     """Agente para consultar informações da API FURIA"""
 
-    def __init__(self, base_url: str = "https://furia-9hdbrtqug-claytons-projects-15b8f849.vercel.app/"):
+    def __init__(self, base_url: str = "https://furia-l3omrxask-claytons-projects-15b8f849.vercel.app/"):
         """
         Inicializa o agente com a URL base da API 
         """
